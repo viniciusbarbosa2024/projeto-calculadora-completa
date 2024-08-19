@@ -13,7 +13,6 @@ body {
     background-color: black;
 }
 
-
 main {
     max-width: 500px;
     height: 100%;
@@ -21,7 +20,7 @@ main {
     background-color: black;
 }
 
-main #tela {
+main #screen {
     width: 100%;
     height: 150px;
     padding: 40px 20px;
@@ -32,7 +31,7 @@ main #tela {
     color: white;
 }
 
-main #areaBotoes {
+main #buttonArea {
     display: flex;
     flex-wrap: wrap;
     row-gap: calc((100vh - 405px)/4);
@@ -41,10 +40,9 @@ main #areaBotoes {
 
     width: 100%;
     padding: 10px;
-
 }
 
-main #areaBotoes .botao {
+main #buttonArea .button {
     width: 70px;
     height: 47px;
     padding: 10px;
@@ -60,16 +58,16 @@ main #areaBotoes .botao {
     cursor: pointer;
 }
 
-main #areaBotoes .botao:hover {
+main #buttonArea .button:hover {
     background-color: rgb(60, 60, 60);
 }
 
-main #areaBotoes #null {
+main #buttonArea #empty {
     background-color: black;
     border: 0px;
 }
 
-main #areaBotoes #igual {
+main #buttonArea #equals {
     font-size: 1.5em;
     font-weight: bold;
     border: 0px;
@@ -78,6 +76,6 @@ main #areaBotoes #igual {
     background-color: rgb(255, 166, 1);
 }
 
-main #areaBotoes #apagarCaractere img {
+main #buttonArea #deleteCharacter img {
     width: 25px;
 }
