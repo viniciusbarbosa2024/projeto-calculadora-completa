@@ -42,12 +42,16 @@ function displayOnScreen(value) {
   screen.innerHTML += value;
 }
 
+function clearAll() {
+    buttonsClicked.splice(0)
+    screen.innerHTML = 0
+}
 
 
 function generalFunction(value) {
     switch (value) {
         case 'clear':
-
+            clearAll()
             break
 
         case 'deleteCharacter':
