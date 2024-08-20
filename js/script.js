@@ -55,7 +55,32 @@ function clearAll() {
 
 function deleteLastCharacter() {
     buttonsClicked.splice(buttonsClicked.length -1)
-    displayOnScreen()
+}
+
+function identifyExpression() {
+    let stringExpression = ''
+    let buttonsClickedCopy = [...buttonsClicked]
+
+    buttonsClickedCopy.forEach((element,index) => {
+        if (element == 'x') {
+            buttonsClickedCopy[index] = '*'
+        } else if (element == ',') {
+            buttonsClickedCopy[index] = '.'
+        } else if (element == '%') {
+            buttonsClickedCopy[index] = '/100*'
+        }
+
+        stringExpression += buttonsClickedCopy[index]
+    })
+
+    return stringExpression
+}
+
+function solveExpression(expression) {
+    alert(eval(expression))
+    //Problema das operações com vírgula
+    //Exibir resultado na tela
+    //Melhorar função de exibição na tela
 }
 
 
@@ -67,10 +92,11 @@ function generalFunction(value) {
 
         case 'deleteCharacter':
             deleteLastCharacter()
+            displayOnScreen()
             break
         
         case '=':
-
+            solveExpression(identifyExpression())
             break
         
         default:
