@@ -116,6 +116,8 @@ function generalFunction(value) {
                     buttonsClicked.push(0)
                     buttonsClicked.push(value)
                     displayOnScreen(arrayToString(buttonsClicked))
+                } else if (typeof buttonsClicked[buttonsClicked.length - 1] === 'string') {
+                    alert('formato inválido')
                 } else {
                     buttonsClicked.push(value)
                     displayOnScreen(arrayToString(buttonsClicked))
