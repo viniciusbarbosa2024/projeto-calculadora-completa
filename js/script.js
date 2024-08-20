@@ -38,14 +38,8 @@ addition.addEventListener('click',() => generalFunction('+'))
 comma.addEventListener('click',() => generalFunction(','))
 equals.addEventListener('click',() => generalFunction('='))
 
-function displayOnScreen() {
-    let expression = ''
-
-    buttonsClicked.forEach((element) => {
-        expression += String(element)
-    })
-
-    screen.innerHTML = expression
+function displayOnScreen(string) {
+    screen.innerHTML = string
 }
 
 function clearAll() {
@@ -77,10 +71,18 @@ function identifyExpression() {
 }
 
 function solveExpression(expression) {
-    alert(eval(expression))
-    //Problema das operações com vírgula
-    //Exibir resultado na tela
-    //Melhorar função de exibição na tela
+    let result = parseFloat(eval(expression).toFixed(10))
+    displayOnScreen(result)
+}
+
+function arrayToString(array) {
+    let string = ''
+
+    array.forEach((element) => {
+        string += String(element)
+    })
+
+    return string
 }
 
 
@@ -92,7 +94,7 @@ function generalFunction(value) {
 
         case 'deleteCharacter':
             deleteLastCharacter()
-            displayOnScreen()
+            displayOnScreen(arrayToString(buttonsClicked))
             break
         
         case '=':
@@ -104,19 +106,19 @@ function generalFunction(value) {
                 if (buttonsClicked.length == 0) {
                     buttonsClicked.push(value)
                     screen.innerHTML = '' //Remove o '0' da tela para adicionar o novo valor
-                    displayOnScreen()
+                    displayOnScreen(arrayToString(buttonsClicked))
                 } else {
                     buttonsClicked.push(value)
-                    displayOnScreen()
+                    displayOnScreen(arrayToString(buttonsClicked))
                 }
             }  else if (typeof value == 'string') {
                 if (buttonsClicked.length == 0) {
                     buttonsClicked.push(0)
                     buttonsClicked.push(value)
-                    displayOnScreen()
+                    displayOnScreen(arrayToString(buttonsClicked))
                 } else {
                     buttonsClicked.push(value)
-                    displayOnScreen()
+                    displayOnScreen(arrayToString(buttonsClicked))
                 }
             }
 
