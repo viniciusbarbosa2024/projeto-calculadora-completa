@@ -85,6 +85,11 @@ function arrayToString(array) {
     return string
 }
 
+function storeValueAndDisplayIt(value) {
+    buttonsClicked.push(value)
+    displayOnScreen(arrayToString(buttonsClicked))
+}
+
 
 function generalFunction(value) {
     switch (value) {
@@ -102,26 +107,26 @@ function generalFunction(value) {
             break
         
         default:
-            if (typeof value == 'number') {
-                if (buttonsClicked.length == 0) {
-                    buttonsClicked.push(value)
-                    screen.innerHTML = '' //Remove o '0' da tela para adicionar o novo valor
-                    displayOnScreen(arrayToString(buttonsClicked))
-                } else {
-                    buttonsClicked.push(value)
-                    displayOnScreen(arrayToString(buttonsClicked))
-                }
-            }  else if (typeof value == 'string') {
-                if (buttonsClicked.length == 0) {
-                    buttonsClicked.push(0)
-                    buttonsClicked.push(value)
-                    displayOnScreen(arrayToString(buttonsClicked))
-                } else if (typeof buttonsClicked[buttonsClicked.length - 1] === 'string') {
-                    alert('formato inválido')
-                } else {
-                    buttonsClicked.push(value)
-                    displayOnScreen(arrayToString(buttonsClicked))
-                }
+            switch (typeof value) {
+                case 'number':
+                    if (buttonsClicked.length == 0) {
+                        screen.innerHTML = '' //Remove o '0' da tela para adicionar o novo valor
+                        storeValueAndDisplayIt(value)
+                    } else {
+                        storeValueAndDisplayIt(value)
+                    }
+                    
+                    break
+                case 'string':
+                    if (buttonsClicked.length == 0) {
+                        buttonsClicked.push(0)
+                        storeValueAndDisplayIt(value)
+                    } else if (typeof buttonsClicked[buttonsClicked.length - 1] === 'string') {
+                        alert('formato inválido')
+                    } else {
+                        storeValueAndDisplayIt(value)
+                    }
+                    break
             }
 
     }
