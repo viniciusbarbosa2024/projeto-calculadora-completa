@@ -30,20 +30,46 @@ buttonNumber.forEach((element, index) => {
 
 clear.addEventListener('click',() => generalFunction('clear'))
 deleteCharacter.addEventListener('click',() => generalFunction('deleteCharacter'))
-percentage.addEventListener('click',() => generalFunction('percentage'))
-division.addEventListener('click',() => generalFunction('division'))
-multiplication.addEventListener('click',() => generalFunction('multiplication'))
-subtraction.addEventListener('click',() => generalFunction('subtraction'))
-addition.addEventListener('click',() => generalFunction('addition'))
-comma.addEventListener('click',() => generalFunction('comma'))
-equals.addEventListener('click',() => generalFunction('equals'))
+percentage.addEventListener('click',() => generalFunction('%'))
+division.addEventListener('click',() => generalFunction('/'))
+multiplication.addEventListener('click',() => generalFunction('x'))
+subtraction.addEventListener('click',() => generalFunction('-'))
+addition.addEventListener('click',() => generalFunction('+'))
+comma.addEventListener('click',() => generalFunction(','))
+equals.addEventListener('click',() => generalFunction('='))
 
 function displayOnScreen(value) {
   screen.innerHTML += value;
 }
 
-function generalFunction(value) {
-  buttonsClicked.push(value);
 
-  displayOnScreen(value);
+
+function generalFunction(value) {
+    switch (value) {
+        case 'clear':
+
+            break
+
+        case 'deleteCharacter':
+        
+            break
+        
+        case '=':
+
+            break
+        
+        default:
+            if (typeof value == 'number') {
+                if (buttonsClicked.length == 0) {
+                    buttonsClicked.push(value)
+                    screen.innerHTML = ''
+                    displayOnScreen(value)
+                } else {
+                    buttonsClicked.push(value)
+                    displayOnScreen(value)
+                }
+            }  
+
+    }
+  
 }
