@@ -38,13 +38,24 @@ addition.addEventListener('click',() => generalFunction('+'))
 comma.addEventListener('click',() => generalFunction(','))
 equals.addEventListener('click',() => generalFunction('='))
 
-function displayOnScreen(value) {
-  screen.innerHTML += value;
+function displayOnScreen() {
+    let expression = ''
+
+    buttonsClicked.forEach((element) => {
+        expression += String(element)
+    })
+
+    screen.innerHTML = expression
 }
 
 function clearAll() {
     buttonsClicked.splice(0)
     screen.innerHTML = 0
+}
+
+function deleteLastCharacter() {
+    buttonsClicked.splice(buttonsClicked.length -1)
+    displayOnScreen()
 }
 
 
@@ -55,7 +66,7 @@ function generalFunction(value) {
             break
 
         case 'deleteCharacter':
-        
+            deleteLastCharacter()
             break
         
         case '=':
@@ -67,19 +78,19 @@ function generalFunction(value) {
                 if (buttonsClicked.length == 0) {
                     buttonsClicked.push(value)
                     screen.innerHTML = '' //Remove o '0' da tela para adicionar o novo valor
-                    displayOnScreen(value)
+                    displayOnScreen()
                 } else {
                     buttonsClicked.push(value)
-                    displayOnScreen(value)
+                    displayOnScreen()
                 }
             }  else if (typeof value == 'string') {
                 if (buttonsClicked.length == 0) {
                     buttonsClicked.push(0)
                     buttonsClicked.push(value)
-                    displayOnScreen(value)
+                    displayOnScreen()
                 } else {
                     buttonsClicked.push(value)
-                    displayOnScreen(value)
+                    displayOnScreen()
                 }
             }
 
