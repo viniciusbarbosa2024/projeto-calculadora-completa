@@ -62,13 +62,22 @@ function generalFunction(value) {
             if (typeof value == 'number') {
                 if (buttonsClicked.length == 0) {
                     buttonsClicked.push(value)
-                    screen.innerHTML = ''
+                    screen.innerHTML = '' //Remove o '0' da tela para adicionar o novo valor
                     displayOnScreen(value)
                 } else {
                     buttonsClicked.push(value)
                     displayOnScreen(value)
                 }
-            }  
+            }  else if (typeof value == 'string') {
+                if (buttonsClicked.length == 0) {
+                    buttonsClicked.push(0)
+                    buttonsClicked.push(value)
+                    displayOnScreen(value)
+                } else {
+                    buttonsClicked.push(value)
+                    displayOnScreen(value)
+                }
+            }
 
     }
   
