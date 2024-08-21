@@ -61,6 +61,7 @@ function deleteLastCharacter() {
         ExpressionArray.pop()
     } else {
         ExpressionArray.splice(cursorPosition -1,1)
+        cursorPosition = null
     }
 }
 
