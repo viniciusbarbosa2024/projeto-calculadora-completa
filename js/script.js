@@ -39,12 +39,12 @@ comma.addEventListener('click',() => generalFunction(','))
 equals.addEventListener('click',() => generalFunction('='))
 
 function displayOnScreen(string) {
-    screen.innerHTML = string
+    screen.value = string
 }
 
 function clearAll() {
     buttonsClicked.splice(0)
-    screen.innerHTML = 0
+    screen.value = 0
 }
 
 function deleteLastCharacter() {
@@ -110,7 +110,7 @@ function generalFunction(value) {
             switch (typeof value) {
                 case 'number':
                     if (buttonsClicked.length == 0) {
-                        screen.innerHTML = '' //Remove o '0' da tela para adicionar o novo valor
+                        screen.value = '' //Remove o '0' da tela para adicionar o novo valor
                         storeValueAndDisplayIt(value)
                     } else {
                         storeValueAndDisplayIt(value)
