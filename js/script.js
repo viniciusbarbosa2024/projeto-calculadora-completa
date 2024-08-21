@@ -103,6 +103,7 @@ function storeValueAndDisplayIt(value) {
         valueAddedPosition = buttonsClicked.length + 1
     } else {
         valueAddedPosition = cursorPosition
+        cursorPosition = null
     }
 
     buttonsClicked.splice(valueAddedPosition,0,value)
