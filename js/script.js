@@ -25,7 +25,10 @@ let cursorPosition = null
 //Adicionando listeners
 
 screen.addEventListener('click',checkCursorPosition)
-screen.addEventListener('keydown',checkCursorPosition)
+
+screen.addEventListener('keydown',(e) => {
+    e.preventDefault() //Impedir manipulação da expressão usando o teclado
+})
 
 buttonNumber.forEach((element, index) => {
   buttonNumber[index].addEventListener("click", () =>
@@ -107,15 +110,7 @@ function storeValueAndDisplayIt(value) {
 }
 
 function checkCursorPosition(e) {
-    if (e.type == 'click') {
-        cursorPosition = screen.selectionStart
-    } else if (e.type == 'keydown') {
-        if (e.keyCode == 37 || e.keyCode == 8) {
-            cursorPosition = screen.selectionStart - 1
-        } else if (e.keyCode == 39) {
-            cursorPosition = screen.selectionStart + 1
-        }
-    }
+    cursorPosition = screen.selectionStart 
 }
 
 function generalFunction(value) {
