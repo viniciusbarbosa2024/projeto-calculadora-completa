@@ -18,7 +18,7 @@ buttonNumber.forEach((element, index) => {
   buttonNumber[index] = document.getElementById(`number${index}`);
 });
 
-const buttonsClicked = [];
+const ExpressionArray = [];
 
 let cursorPosition = null
 
@@ -51,17 +51,17 @@ function displayOnScreen(string) {
 }
 
 function clearAll() {
-    buttonsClicked.splice(0)
+    ExpressionArray.splice(0)
     screen.value = 0
 }
 
 function deleteLastCharacter() {
-    buttonsClicked.splice(buttonsClicked.length -1)
+    ExpressionArray.splice(ExpressionArray.length -1)
 }
 
 function identifyExpression() {
     let stringExpression = ''
-    let buttonsClickedCopy = [...buttonsClicked]
+    let buttonsClickedCopy = [...ExpressionArray]
 
     buttonsClickedCopy.forEach((element,index) => {
         if (element == 'x') {
@@ -93,21 +93,26 @@ function arrayToString(array) {
     return string
 }
 
+//Verifica onde o valor deve ser adicionado (a depender da posição do cursor na tela)
+function checkValueAddedPosition() {
+    if (cursorPosition === null) {
+        //Se o cursor não está sendo exibido o valor é adicionado no fim da expressão
+        return ExpressionArray.length + 1
+    } else {   
+        return cursorPosition    
+    }
+}
+
 //Falta organizar código
 //Validações nos valores digitados
 //Problema no focus
 function storeValueAndDisplayIt(value) {
-    let valueAddedPosition = null
+    let valueAddedPosition = checkValueAddedPosition()
+    
+    cursorPosition = null
 
-    if (cursorPosition === null) {
-        valueAddedPosition = buttonsClicked.length + 1
-    } else {
-        valueAddedPosition = cursorPosition
-        cursorPosition = null
-    }
-
-    buttonsClicked.splice(valueAddedPosition,0,value)
-    displayOnScreen(arrayToString(buttonsClicked))
+    ExpressionArray.splice(valueAddedPosition,0,value)
+    displayOnScreen(arrayToString(ExpressionArray))
 }
 
 function checkCursorPosition(e) {
@@ -122,7 +127,7 @@ function generalFunction(value) {
 
         case 'deleteCharacter':
             deleteLastCharacter()
-            displayOnScreen(arrayToString(buttonsClicked))
+            displayOnScreen(arrayToString(ExpressionArray))
             break
         
         case '=':
@@ -132,7 +137,7 @@ function generalFunction(value) {
         default:
             switch (typeof value) {
                 case 'number':
-                    if (buttonsClicked.length == 0) {
+                    if (ExpressionArray.length == 0) {
                         screen.value = '' //Remove o '0' da tela para adicionar o novo valor
                         storeValueAndDisplayIt(value)
                     } else {
@@ -141,10 +146,10 @@ function generalFunction(value) {
                     
                     break
                 case 'string':
-                    if (buttonsClicked.length == 0) {
-                        buttonsClicked.push(0)
+                    if (ExpressionArray.length == 0) {
+                        ExpressionArray.push(0)
                         storeValueAndDisplayIt(value)
-                    } else if (typeof buttonsClicked[buttonsClicked.length - 1] === 'string') {
+                    } else if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string') {
                         alert('formato inválido')
                     } else {
                         storeValueAndDisplayIt(value)
