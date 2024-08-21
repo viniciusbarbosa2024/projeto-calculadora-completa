@@ -20,7 +20,12 @@ buttonNumber.forEach((element, index) => {
 
 const buttonsClicked = [];
 
+let cursorPosition = null
+
 //Adicionando listeners
+
+screen.addEventListener('click',checkCursorPosition)
+screen.addEventListener('keydown',checkCursorPosition)
 
 buttonNumber.forEach((element, index) => {
   buttonNumber[index].addEventListener("click", () =>
@@ -85,11 +90,33 @@ function arrayToString(array) {
     return string
 }
 
+//Falta organizar código
+//Validações nos valores digitados
+//Problema no focus
 function storeValueAndDisplayIt(value) {
-    buttonsClicked.push(value)
+    let valueAddedPosition = null
+
+    if (cursorPosition === null) {
+        valueAddedPosition = buttonsClicked.length + 1
+    } else {
+        valueAddedPosition = cursorPosition
+    }
+
+    buttonsClicked.splice(valueAddedPosition,0,value)
     displayOnScreen(arrayToString(buttonsClicked))
 }
 
+function checkCursorPosition(e) {
+    if (e.type == 'click') {
+        cursorPosition = screen.selectionStart
+    } else if (e.type == 'keydown') {
+        if (e.keyCode == 37 || e.keyCode == 8) {
+            cursorPosition = screen.selectionStart - 1
+        } else if (e.keyCode == 39) {
+            cursorPosition = screen.selectionStart + 1
+        }
+    }
+}
 
 function generalFunction(value) {
     switch (value) {
