@@ -55,8 +55,13 @@ function clearAll() {
     screen.value = 0
 }
 
+//Renomear esta função
 function deleteLastCharacter() {
-    ExpressionArray.splice(ExpressionArray.length -1)
+    if (cursorPosition === null) {
+        ExpressionArray.pop()
+    } else {
+        ExpressionArray.splice(cursorPosition -1,1)
+    }
 }
 
 function identifyExpression() {
@@ -97,14 +102,14 @@ function arrayToString(array) {
 function checkValueAddedPosition() {
     if (cursorPosition === null) {
         //Se o cursor não está sendo exibido o valor é adicionado no fim da expressão
-        return ExpressionArray.length + 1
+        return ExpressionArray.length
     } else {   
         return cursorPosition    
     }
 }
 
-//Falta organizar código
-//Validações nos valores digitados
+
+//Ver a possibilidade de eliminar a variável valueAddedPosition
 //Problema no focus
 function storeValueAndDisplayIt(value) {
     let valueAddedPosition = checkValueAddedPosition()
