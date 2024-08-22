@@ -58,10 +58,15 @@ function displayOnScreen(string) {
     screen.value = string
 }
 
+//O reset do valor do cursorPosition faz com que o cursor apareça no final da expressão
+function resetCursorPosition() {
+    cursorPosition = ExpressionArray.length
+}
+
 function clearAll() {
     ExpressionArray.splice(0)
     screen.value = 0
-    cursorPosition = ExpressionArray.length
+    resetCursorPosition()
 }
 
 
@@ -127,6 +132,29 @@ function updateCursorPositionOnScreen(updateParameter) {
     cursorPosition = cursorPosition + updateParameter
 }
 
+function a(x) {
+    let updateParameter = null
+    
+    switch(x) {
+        case 'add':
+            updateParameter = 1
+            break
+        case 'keep':
+            updateParameter = 0
+
+            break
+        case 'remove':
+            updateParameter = -1
+            break
+    }
+
+    screen.focus()
+
+    screen.setSelectionRange(cursorPosition+updateParameter,cursorPosition+updateParameter)
+
+    cursorPosition = cursorPosition + updateParameter
+}
+
 function enableTheUseOfTheResultForNewOperations(result){
     ExpressionArray.splice(0)
             
@@ -166,7 +194,8 @@ function generalFunction(value) {
              
             enableTheUseOfTheResultForNewOperations(result)
 
-            cursorPosition = ExpressionArray.length
+            resetCursorPosition()
+
             updateCursorPositionOnScreen(0)
             
             break
