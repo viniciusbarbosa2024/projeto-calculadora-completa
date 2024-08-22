@@ -135,10 +135,16 @@ function generalFunction(value) {
             break
 
         case 'deleteCharacter':
-            deleteDesiredCharacter()
-            displayOnScreen(arrayToString(ExpressionArray))
-            
-            updateCursorPositionOnScreen(-1)
+            if (ExpressionArray.length === 1) {
+                //Evitar que a tela fique vazia
+                deleteDesiredCharacter()    
+                screen.value = 0
+                updateCursorPositionOnScreen(1)
+            } else {
+                deleteDesiredCharacter()
+                displayOnScreen(arrayToString(ExpressionArray))
+                updateCursorPositionOnScreen(-1)
+            }
             break
         
         case '=':
