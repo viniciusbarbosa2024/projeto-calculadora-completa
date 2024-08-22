@@ -127,6 +127,18 @@ function updateCursorPositionOnScreen(updateParameter) {
     cursorPosition = cursorPosition + updateParameter
 }
 
+function enableTheUseOfTheResultForNewOperations(result){
+    ExpressionArray.splice(0)
+            
+    let ResultArrayInString = String(result).split('')
+    
+    ResultArrayInString.forEach ((element)=> {
+
+        ExpressionArray.push(Number(element))
+
+     })
+}
+
 function generalFunction(value) {
     switch (value) {
         case 'clear':
@@ -153,15 +165,10 @@ function generalFunction(value) {
         
         case '=':
             let result = solveExpression(identifyExpression())
-
-             ExpressionArray.splice(0)
             
-             let ResultArrayInString = String(result).split('')
-             ResultArrayInString.forEach ((element)=> {
-                 ExpressionArray.push(Number(element))
-             })
-
             displayOnScreen(result)
+             
+            enableTheUseOfTheResultForNewOperations(result)
             
             break
         
