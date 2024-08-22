@@ -114,39 +114,29 @@ function storeValueAndDisplayIt(value) {
     ExpressionArray.splice(cursorPosition,0,value)
     displayOnScreen(arrayToString(ExpressionArray))
 
-    updateCursorPositionOnScreen(1)
+    updateCursorPositionOnScreen('add')
 }
 
 function checkCursorPosition(e) {
     cursorPosition = screen.selectionStart 
 }
 
-//Atualiza a posição do cursor na tela
-function updateCursorPositionOnScreen(updateParameter) {
-    screen.focus()
-
-    //O updateParameter é 1 quando um valor(caractere) é adicionado na tela e -1 quando um valor(caractere) é removido
-
-    screen.setSelectionRange(cursorPosition+updateParameter,cursorPosition+updateParameter)
-
-    cursorPosition = cursorPosition + updateParameter
+//Define o updateParameter
+function setUpdateParameter(typeOfModificationInTheExpression) {
+    switch(typeOfModificationInTheExpression) {
+        case 'add':
+            return 1
+        case 'keep':
+            return 0
+        case 'remove':
+            return -1
+    }
 }
 
-function a(x) {
-    let updateParameter = null
-    
-    switch(x) {
-        case 'add':
-            updateParameter = 1
-            break
-        case 'keep':
-            updateParameter = 0
-
-            break
-        case 'remove':
-            updateParameter = -1
-            break
-    }
+//Atualiza a posição do cursor na tela
+function updateCursorPositionOnScreen(typeOfModificationInTheExpression) {
+    //Esta variável serve para orientar a definição da posição do cursor na tela dependendo do tipo de modificação que ocorreu na expressão (aumento, manutenção ou diminuição do tamanho da expressão)
+    let updateParameter = setUpdateParameter(typeOfModificationInTheExpression)
 
     screen.focus()
 
@@ -183,7 +173,7 @@ function generalFunction(value) {
             } else {
                 deleteDesiredCharacter()
                 displayOnScreen(arrayToString(ExpressionArray))
-                updateCursorPositionOnScreen(-1)
+                updateCursorPositionOnScreen('remove')
             }
             break
         
@@ -196,7 +186,7 @@ function generalFunction(value) {
 
             resetCursorPosition()
 
-            updateCursorPositionOnScreen(0)
+            updateCursorPositionOnScreen('keep')
             
             break
         
