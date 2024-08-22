@@ -151,15 +151,11 @@ function generalFunction(value) {
                 //Evitar que a tela fique vazia
                 deleteDesiredCharacter()    
                 screen.value = 0
-                //Tem muito bug nesse trecho
+                displayCursor()
             } else {
-                console.log(cursorPosition)
                 deleteDesiredCharacter()
-                console.log(cursorPosition)
                 displayOnScreen(arrayToString(ExpressionArray))
-                console.log(cursorPosition)
                 updateCursorPositionOnScreen(-1)
-                console.log(cursorPosition)
             }
             break
         
