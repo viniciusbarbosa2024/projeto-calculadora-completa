@@ -133,6 +133,16 @@ function setUpdateParameter(typeOfModificationInTheExpression) {
     }
 }
 
+//Atualiza valor da variável cursorPosition
+function updateCursorPositionVariableValue(updateParameter) {
+    cursorPosition = cursorPosition + updateParameter
+}
+
+//Posiciona o cursor da tela na posição correta
+function positionCursorOnScreen() {
+    screen.setSelectionRange(cursorPosition,cursorPosition)
+}
+
 //Atualiza a posição do cursor na tela
 function updateCursorPositionOnScreen(typeOfModificationInTheExpression) {
     //Esta variável serve para orientar a definição da posição do cursor na tela dependendo do tipo de modificação que ocorreu na expressão (aumento, manutenção ou diminuição do tamanho da expressão)
@@ -140,9 +150,9 @@ function updateCursorPositionOnScreen(typeOfModificationInTheExpression) {
 
     screen.focus()
 
-    screen.setSelectionRange(cursorPosition+updateParameter,cursorPosition+updateParameter)
+    updateCursorPositionVariableValue(updateParameter)
 
-    cursorPosition = cursorPosition + updateParameter
+    positionCursorOnScreen()
 }
 
 function enableTheUseOfTheResultForNewOperations(result){
