@@ -61,6 +61,7 @@ function displayOnScreen(string) {
 function clearAll() {
     ExpressionArray.splice(0)
     screen.value = 0
+    cursorPosition = ExpressionArray.length
 }
 
 
@@ -89,8 +90,7 @@ function identifyExpression() {
 }
 
 function solveExpression(expression) {
-    let result = parseFloat(eval(expression).toFixed(10))
-    displayOnScreen(result)
+    return parseFloat(eval(expression).toFixed(10)) 
 }
 
 function arrayToString(array) {
@@ -139,16 +139,30 @@ function generalFunction(value) {
                 //Evitar que a tela fique vazia
                 deleteDesiredCharacter()    
                 screen.value = 0
-                updateCursorPositionOnScreen(1)
+                //Tem muito bug nesse trecho
             } else {
+                console.log(cursorPosition)
                 deleteDesiredCharacter()
+                console.log(cursorPosition)
                 displayOnScreen(arrayToString(ExpressionArray))
+                console.log(cursorPosition)
                 updateCursorPositionOnScreen(-1)
+                console.log(cursorPosition)
             }
             break
         
         case '=':
-            solveExpression(identifyExpression())
+            let result = solveExpression(identifyExpression())
+
+            // ExpressionArray.splice(0)
+            
+            // let ResultArrayInString = String(result).split('')
+            // ResultArrayInString.forEach ((element)=> {
+            //     ExpressionArray.push(Number(element))
+            // })
+
+            displayOnScreen(result)
+            //updateCursorPositionOnScreen(-1)
             break
         
         default:
