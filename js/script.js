@@ -169,6 +169,9 @@ function generalFunction(value) {
             displayOnScreen(result)
              
             enableTheUseOfTheResultForNewOperations(result)
+
+            cursorPosition = ExpressionArray.length
+            updateCursorPositionOnScreen(0)
             
             break
         
