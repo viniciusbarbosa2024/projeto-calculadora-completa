@@ -154,15 +154,15 @@ function generalFunction(value) {
         case '=':
             let result = solveExpression(identifyExpression())
 
-            // ExpressionArray.splice(0)
+             ExpressionArray.splice(0)
             
-            // let ResultArrayInString = String(result).split('')
-            // ResultArrayInString.forEach ((element)=> {
-            //     ExpressionArray.push(Number(element))
-            // })
+             let ResultArrayInString = String(result).split('')
+             ResultArrayInString.forEach ((element)=> {
+                 ExpressionArray.push(Number(element))
+             })
 
             displayOnScreen(result)
-            //updateCursorPositionOnScreen(-1)
+            
             break
         
         default:
