@@ -55,13 +55,10 @@ function clearAll() {
     screen.value = 0
 }
 
-//Renomear esta função
-function deleteLastCharacter() {
-    if (cursorPosition === null) {
-        ExpressionArray.pop()
-    } else {
-        ExpressionArray.splice(cursorPosition -1,1)
-    }
+
+function deleteDesiredCharacter() {
+    ExpressionArray.splice(cursorPosition -1,1)
+    
 }
 
 function identifyExpression() {
@@ -104,13 +101,22 @@ function storeValueAndDisplayIt(value) {
     ExpressionArray.splice(cursorPosition,0,value)
     displayOnScreen(arrayToString(ExpressionArray))
 
-    screen.focus()
-    screen.setSelectionRange(cursorPosition+1,cursorPosition+1)
-    cursorPosition++
+    updateCursorPositionOnScreen(1)
 }
 
 function checkCursorPosition(e) {
     cursorPosition = screen.selectionStart 
+}
+
+//Atualiza a posição do cursor na tela
+function updateCursorPositionOnScreen(updateParameter) {
+    screen.focus()
+
+    //O updateParameter é 1 quando um valor(caractere) é adicionado na tela e -1 quando um valor(caractere) é removido
+
+    screen.setSelectionRange(cursorPosition+updateParameter,cursorPosition+updateParameter)
+
+    cursorPosition = cursorPosition + updateParameter
 }
 
 function generalFunction(value) {
@@ -120,12 +126,10 @@ function generalFunction(value) {
             break
 
         case 'deleteCharacter':
-            deleteLastCharacter()
+            deleteDesiredCharacter()
             displayOnScreen(arrayToString(ExpressionArray))
             
-            screen.focus()
-            screen.setSelectionRange(cursorPosition-1,cursorPosition-1)
-            cursorPosition--
+            updateCursorPositionOnScreen(-1)
             break
         
         case '=':
