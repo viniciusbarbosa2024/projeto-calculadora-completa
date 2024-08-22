@@ -24,7 +24,10 @@ let cursorPosition = ExpressionArray.length
 
 //Adicionando listeners
 
+document.addEventListener('DOMContentLoaded',displayCursor)
+
 screen.addEventListener('click',checkCursorPosition)
+
 
 screen.addEventListener('keydown',(e) => {
     e.preventDefault() //Impedir manipulação da expressão usando o teclado
@@ -45,6 +48,11 @@ subtraction.addEventListener('click',() => generalFunction('-'))
 addition.addEventListener('click',() => generalFunction('+'))
 comma.addEventListener('click',() => generalFunction(','))
 equals.addEventListener('click',() => generalFunction('='))
+
+function displayCursor() {
+    screen.focus()
+    screen.setSelectionRange(1,1)
+}
 
 function displayOnScreen(string) {
     screen.value = string
@@ -123,6 +131,7 @@ function generalFunction(value) {
     switch (value) {
         case 'clear':
             clearAll()
+            displayCursor()
             break
 
         case 'deleteCharacter':
