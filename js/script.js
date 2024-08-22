@@ -61,7 +61,6 @@ function deleteLastCharacter() {
         ExpressionArray.pop()
     } else {
         ExpressionArray.splice(cursorPosition -1,1)
-        cursorPosition = null
     }
 }
 
@@ -111,14 +110,18 @@ function checkValueAddedPosition() {
 
 
 //Ver a possibilidade de eliminar a variável valueAddedPosition
-//Problema no focus
+//Melhorar código
+//Renomear função
 function storeValueAndDisplayIt(value) {
     let valueAddedPosition = checkValueAddedPosition()
-    
-    cursorPosition = null
 
     ExpressionArray.splice(valueAddedPosition,0,value)
     displayOnScreen(arrayToString(ExpressionArray))
+
+    screen.focus()
+    screen.setSelectionRange(valueAddedPosition+1,valueAddedPosition+1)
+
+    cursorPosition = valueAddedPosition + 1
 }
 
 function checkCursorPosition(e) {
@@ -134,6 +137,11 @@ function generalFunction(value) {
         case 'deleteCharacter':
             deleteLastCharacter()
             displayOnScreen(arrayToString(ExpressionArray))
+            let teste = checkValueAddedPosition()
+            
+            screen.focus()
+            screen.setSelectionRange(teste-1,teste-1)
+            cursorPosition = teste-1
             break
         
         case '=':
