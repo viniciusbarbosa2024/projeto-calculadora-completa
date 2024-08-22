@@ -20,7 +20,7 @@ buttonNumber.forEach((element, index) => {
 
 const ExpressionArray = [];
 
-let cursorPosition = null
+let cursorPosition = ExpressionArray.length
 
 //Adicionando listeners
 
@@ -98,30 +98,15 @@ function arrayToString(array) {
     return string
 }
 
-//Verifica onde o valor deve ser adicionado (a depender da posição do cursor na tela)
-function checkValueAddedPosition() {
-    if (cursorPosition === null) {
-        //Se o cursor não está sendo exibido o valor é adicionado no fim da expressão
-        return ExpressionArray.length
-    } else {   
-        return cursorPosition    
-    }
-}
-
-
-//Ver a possibilidade de eliminar a variável valueAddedPosition
 //Melhorar código
 //Renomear função
 function storeValueAndDisplayIt(value) {
-    let valueAddedPosition = checkValueAddedPosition()
-
-    ExpressionArray.splice(valueAddedPosition,0,value)
+    ExpressionArray.splice(cursorPosition,0,value)
     displayOnScreen(arrayToString(ExpressionArray))
 
     screen.focus()
-    screen.setSelectionRange(valueAddedPosition+1,valueAddedPosition+1)
-
-    cursorPosition = valueAddedPosition + 1
+    screen.setSelectionRange(cursorPosition+1,cursorPosition+1)
+    cursorPosition++
 }
 
 function checkCursorPosition(e) {
@@ -137,11 +122,10 @@ function generalFunction(value) {
         case 'deleteCharacter':
             deleteLastCharacter()
             displayOnScreen(arrayToString(ExpressionArray))
-            let teste = checkValueAddedPosition()
             
             screen.focus()
-            screen.setSelectionRange(teste-1,teste-1)
-            cursorPosition = teste-1
+            screen.setSelectionRange(cursorPosition-1,cursorPosition-1)
+            cursorPosition--
             break
         
         case '=':
