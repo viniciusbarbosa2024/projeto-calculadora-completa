@@ -162,7 +162,16 @@ function enableTheUseOfTheResultForNewOperations(result){
     
     ResultArrayInString.forEach ((element)=> {
 
-        ExpressionArray.push(Number(element))
+        if (element === '.') {
+            //Caso de result com número não inteiro
+            ExpressionArray.push(',')
+        } else if(element === '-') {
+            //Caso de result com número negativo
+            ExpressionArray.push(element)
+        } else {
+            ExpressionArray.push(Number(element))
+        }
+        
 
      })
 }
@@ -173,7 +182,7 @@ function generalFunction(value) {
             clearAll()
 
             displayOnScreen(arrayToString(ExpressionArray))
-            
+
             displayCursor()
             break
 
