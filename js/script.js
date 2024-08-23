@@ -162,7 +162,12 @@ function enableTheUseOfTheResultForNewOperations(result){
     
     ResultArrayInString.forEach ((element)=> {
 
-        ExpressionArray.push(Number(element))
+        if (isNaN(Number(element))) {
+            //Caso de vírgulas
+            ExpressionArray.push(',')
+        } else {
+            ExpressionArray.push(Number(element))
+        }
 
      })
 }
