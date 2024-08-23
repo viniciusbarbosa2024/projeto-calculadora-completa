@@ -18,7 +18,7 @@ buttonNumber.forEach((element, index) => {
   buttonNumber[index] = document.getElementById(`number${index}`);
 });
 
-const ExpressionArray = [];
+const ExpressionArray = [0];
 
 let cursorPosition = ExpressionArray.length
 
@@ -65,7 +65,7 @@ function resetCursorPosition() {
 
 function clearAll() {
     ExpressionArray.splice(0)
-    screen.value = 0
+    ExpressionArray.push(0)
     resetCursorPosition()
 }
 
@@ -110,11 +110,11 @@ function arrayToString(array) {
 
 //Melhorar código
 //Renomear função
-function storeValueAndDisplayIt(value) {
+function storeValueAndDisplayIt(value,typeOfModificationInTheExpression) {
     ExpressionArray.splice(cursorPosition,0,value)
     displayOnScreen(arrayToString(ExpressionArray))
 
-    updateCursorPositionOnScreen('add')
+    updateCursorPositionOnScreen(typeOfModificationInTheExpression)
 }
 
 function checkCursorPosition(e) {
@@ -171,14 +171,21 @@ function generalFunction(value) {
     switch (value) {
         case 'clear':
             clearAll()
+
+            displayOnScreen(arrayToString(ExpressionArray))
+            
             displayCursor()
             break
 
         case 'deleteCharacter':
             if (ExpressionArray.length === 1) {
                 //Evitar que a tela fique vazia
-                deleteDesiredCharacter()    
-                screen.value = 0
+                deleteDesiredCharacter() 
+
+                ExpressionArray.push(0)
+
+                displayOnScreen(arrayToString(ExpressionArray))
+
                 displayCursor()
             } else {
                 deleteDesiredCharacter()
@@ -191,7 +198,9 @@ function generalFunction(value) {
             let result = solveExpression(identifyExpression())
             
             displayOnScreen(result)
-             
+            
+            //Problema quando o result é um número com vírgula
+
             enableTheUseOfTheResultForNewOperations(result)
 
             resetCursorPosition()
@@ -203,22 +212,21 @@ function generalFunction(value) {
         default:
             switch (typeof value) {
                 case 'number':
-                    if (ExpressionArray.length == 0) {
-                        screen.value = '' //Remove o '0' da tela para adicionar o novo valor
-                        storeValueAndDisplayIt(value)
+                    if (ExpressionArray.length === 1 &&ExpressionArray[0] === 0) {
+                        ExpressionArray.splice(0) //Remove o '0' da tela para adicionar o novo valor
+                        storeValueAndDisplayIt(value,'keep')
                     } else {
-                        storeValueAndDisplayIt(value)
+                        storeValueAndDisplayIt(value,'add')
                     }
                     
                     break
                 case 'string':
-                    if (ExpressionArray.length == 0) {
-                        ExpressionArray.push(0)
-                        storeValueAndDisplayIt(value)
+                    if (ExpressionArray.length == 1 && ExpressionArray[0] === 0) {
+                        storeValueAndDisplayIt(value,'add')
                     } else if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string') {
                         alert('formato inválido')
                     } else {
-                        storeValueAndDisplayIt(value)
+                        storeValueAndDisplayIt(value,'add')
                     }
                     break
             }
