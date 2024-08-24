@@ -115,11 +115,12 @@ function arrayToString(array) {
 }
 
 
-function storeValueAndDisplayIt(value,typeOfModificationInTheExpression) {
+function storeValueAndDisplayIt(value) {
     ExpressionArray.splice(cursorPosition,0,value)
+    
     displayOnScreen(arrayToString(ExpressionArray))
 
-    updateCursorPositionOnScreen(typeOfModificationInTheExpression)
+    //updateCursorPositionOnScreen(typeOfModificationInTheExpression)
 }
 
 function checkCursorPosition(e) {
@@ -191,6 +192,7 @@ function generalFunction(value) {
             displayOnScreen(arrayToString(ExpressionArray))
 
             displayCursor()
+
             break
 
         case 'deleteCharacter':
@@ -205,9 +207,13 @@ function generalFunction(value) {
                 displayCursor()
             } else {
                 deleteDesiredCharacter()
+
                 displayOnScreen(arrayToString(ExpressionArray))
+
                 updateCursorPositionOnScreen('remove')
+
             }
+            
             break
         
         case '=':
@@ -227,20 +233,32 @@ function generalFunction(value) {
             switch (typeof value) {
                 case 'number':
                     if (ExpressionArray.length === 1 &&ExpressionArray[0] === 0) {
-                        clearExpressionArray() //Remove o '0' da tela para adicionar o novo valor
-                        storeValueAndDisplayIt(value,'keep')
+                        clearExpressionArray()
+                         //Remove o '0' da tela para adicionar o novo valor
+                        storeValueAndDisplayIt(value)
+
+                        updateCursorPositionOnScreen('keep')
+
                     } else {
-                        storeValueAndDisplayIt(value,'add')
+                        storeValueAndDisplayIt(value)
+
+                        updateCursorPositionOnScreen('add')
                     }
                     
                     break
                 case 'string':
                     if (ExpressionArray.length == 1 && ExpressionArray[0] === 0) {
-                        storeValueAndDisplayIt(value,'add')
+                        storeValueAndDisplayIt(value)
+
+                        updateCursorPositionOnScreen('add')
+
                     } else if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string') {
                         alert('formato inválido')
                     } else {
-                        storeValueAndDisplayIt(value,'add')
+                        storeValueAndDisplayIt(value)
+
+                        updateCursorPositionOnScreen('add')
+
                     }
                     break
             }
