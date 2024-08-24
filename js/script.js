@@ -51,7 +51,7 @@ equals.addEventListener('click',() => generalFunction('='))
 
 function displayCursor() {
     screen.focus()
-    screen.setSelectionRange(1,1)
+    screen.setSelectionRange(cursorPosition,cursorPosition)
 }
 
 function displayOnScreen(string) {
