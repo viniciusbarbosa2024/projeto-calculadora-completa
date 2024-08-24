@@ -117,7 +117,7 @@ function arrayToString(array) {
 
 function storeValueAndDisplayIt(value) {
     ExpressionArray.splice(cursorPosition,0,value)
-    
+
     displayOnScreen(arrayToString(ExpressionArray))
 
     //updateCursorPositionOnScreen(typeOfModificationInTheExpression)
@@ -247,19 +247,14 @@ function generalFunction(value) {
                     
                     break
                 case 'string':
-                    if (ExpressionArray.length == 1 && ExpressionArray[0] === 0) {
-                        storeValueAndDisplayIt(value)
-
-                        updateCursorPositionOnScreen('add')
-
-                    } else if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string') {
+                    if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string') {
                         alert('formato inválido')
                     } else {
                         storeValueAndDisplayIt(value)
 
-                        updateCursorPositionOnScreen('add')
-
+                        updateCursorPositionOnScreen('add') 
                     }
+
                     break
             }
 
