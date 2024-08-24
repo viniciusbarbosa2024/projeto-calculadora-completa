@@ -71,7 +71,7 @@ function clearAll() {
     clearExpressionArray()
 
     ExpressionArray.push(0)
-    
+
     resetCursorPosition()
 }
 
@@ -114,8 +114,7 @@ function arrayToString(array) {
     return string
 }
 
-//Melhorar código
-//Renomear função
+
 function storeValueAndDisplayIt(value,typeOfModificationInTheExpression) {
     ExpressionArray.splice(cursorPosition,0,value)
     displayOnScreen(arrayToString(ExpressionArray))
@@ -215,8 +214,6 @@ function generalFunction(value) {
             let result = solveExpression(identifyExpression())
             
             displayOnScreen(result)
-            
-            //Problema quando o result é um número com vírgula
 
             enableTheUseOfTheResultForNewOperations(result)
 
