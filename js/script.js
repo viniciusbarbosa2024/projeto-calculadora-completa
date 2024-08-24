@@ -237,7 +237,7 @@ function generalFunction(value) {
         case '=':
             let result = solveExpression(identifyExpression())
             
-            displayOnScreen(result)
+            displayOnScreen(result.toLocaleString('pt-br'))
 
             enableTheUseOfTheResultForNewOperations(result)
 
