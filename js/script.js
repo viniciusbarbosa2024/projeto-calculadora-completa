@@ -302,11 +302,22 @@ function generalFunction(value) {
                 case 'string':
                     if (lastCharacterOfTheExpressionIsAnOperator() && valueToBeAddedIsNotParentheses(value)) {
                         alert('formato inválido')
+                    } else if(value === '(' && typeof ExpressionArray[cursorPosition-1] === 'number') {
+                
+                        storeValueAndDisplayIt('x')
+
+                        updateCursorPositionOnScreen('add')
+
+                        storeValueAndDisplayIt(value)
+
+                        updateCursorPositionOnScreen('add')
+
                     } else {
                         storeValueAndDisplayIt(value)
 
                         updateCursorPositionOnScreen('add') 
                     }
+                    
 
                     break
             }
