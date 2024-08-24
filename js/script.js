@@ -184,6 +184,24 @@ function enableTheUseOfTheResultForNewOperations(result){
      })
 }
 
+//Verifica se a expressão está zerada
+function checkIfTheExpressionIsZero() {
+    if (ExpressionArray.length === 1 && ExpressionArray[0] === 0) {
+        return true
+    } else {
+        return false
+    }
+
+ }
+
+ function lastCharacterOfTheExpressionIsAnOperator() {
+    if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string') {
+        return true
+    } else {
+        return false
+    }
+ }
+
 function generalFunction(value) {
     switch (value) {
         case 'clear':
@@ -232,9 +250,9 @@ function generalFunction(value) {
         default:
             switch (typeof value) {
                 case 'number':
-                    if (ExpressionArray.length === 1 &&ExpressionArray[0] === 0) {
-                        clearExpressionArray()
-                         //Remove o '0' da tela para adicionar o novo valor
+                    if (checkIfTheExpressionIsZero()) {
+                        clearExpressionArray() //Remove o '0' da tela para adicionar o novo valor
+                         
                         storeValueAndDisplayIt(value)
 
                         updateCursorPositionOnScreen('keep')
@@ -247,7 +265,7 @@ function generalFunction(value) {
                     
                     break
                 case 'string':
-                    if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string') {
+                    if (lastCharacterOfTheExpressionIsAnOperator()) {
                         alert('formato inválido')
                     } else {
                         storeValueAndDisplayIt(value)
