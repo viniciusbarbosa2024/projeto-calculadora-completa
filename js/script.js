@@ -58,14 +58,20 @@ function displayOnScreen(string) {
     screen.value = string
 }
 
+function clearExpressionArray() {
+    ExpressionArray.splice(0)
+}
+
 //O reset do valor do cursorPosition faz com que o cursor apareça no final da expressão
 function resetCursorPosition() {
     cursorPosition = ExpressionArray.length
 }
 
 function clearAll() {
-    ExpressionArray.splice(0)
+    clearExpressionArray()
+
     ExpressionArray.push(0)
+    
     resetCursorPosition()
 }
 
@@ -156,17 +162,19 @@ function updateCursorPositionOnScreen(typeOfModificationInTheExpression) {
 }
 
 function enableTheUseOfTheResultForNewOperations(result){
-    ExpressionArray.splice(0)
+    clearExpressionArray()
             
     let ResultArrayInString = String(result).split('')
     
     ResultArrayInString.forEach ((element)=> {
 
+        //Essas condicionais funcionam porque o result só pode ser um único número real (Ex.: 10,-8,6.32), não podendo ser uma expressão (Ex.: 6-5, 6.35*9.4)
+
         if (element === '.') {
-            //Caso de result com número não inteiro
+            //Caso de result ser um número não inteiro
             ExpressionArray.push(',')
         } else if(element === '-') {
-            //Caso de result com número negativo
+            //Caso de result ser um número negativo
             ExpressionArray.push(element)
         } else {
             ExpressionArray.push(Number(element))
@@ -222,7 +230,7 @@ function generalFunction(value) {
             switch (typeof value) {
                 case 'number':
                     if (ExpressionArray.length === 1 &&ExpressionArray[0] === 0) {
-                        ExpressionArray.splice(0) //Remove o '0' da tela para adicionar o novo valor
+                        clearExpressionArray() //Remove o '0' da tela para adicionar o novo valor
                         storeValueAndDisplayIt(value,'keep')
                     } else {
                         storeValueAndDisplayIt(value,'add')
