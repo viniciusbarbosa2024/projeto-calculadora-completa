@@ -67,10 +67,6 @@ main #buttonArea .button:hover {
     background-color: rgb(60, 60, 60);
 }
 
-main #buttonArea #empty {
-    background-color: black;
-    border: 0px;
-}
 
 main #buttonArea #equals {
     font-size: 1.5em;

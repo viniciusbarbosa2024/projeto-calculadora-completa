@@ -6,6 +6,7 @@ const division = document.getElementById("division");
 const multiplication = document.getElementById("multiplication");
 const subtraction = document.getElementById("subtraction");
 const addition = document.getElementById("addition");
+const parentheses = document.getElementById('parentheses')
 const comma = document.getElementById("comma");
 const equals = document.getElementById("equals");
 
@@ -46,12 +47,38 @@ division.addEventListener('click',() => generalFunction('/'))
 multiplication.addEventListener('click',() => generalFunction('x'))
 subtraction.addEventListener('click',() => generalFunction('-'))
 addition.addEventListener('click',() => generalFunction('+'))
+parentheses.addEventListener('click',() => generalFunction(openOrCloseParentheses()))
 comma.addEventListener('click',() => generalFunction(','))
 equals.addEventListener('click',() => generalFunction('='))
 
 function displayCursor() {
     screen.focus()
     screen.setSelectionRange(cursorPosition,cursorPosition)
+}
+
+function openOrCloseParentheses() {
+    if (ExpressionArray.indexOf('(') === -1) {
+        return '('
+    } else {
+        // let expressionInsideTheParentheses = ExpressionArray.slice(ExpressionArray.indexOf('(')+1)
+        // let returnValue = ''
+        
+        // expressionInsideTheParentheses.forEach((element)=> {
+        //     if (typeof element === 'number') {
+        //         returnValue = ')'
+        //     } else {
+        //         returnValue = '('
+        //     }
+        // })
+
+        // return returnValue
+
+        return ')'
+
+        //Resolver primeiro o funcionamento dos parênteses na generalFunction
+        
+    }
+
 }
 
 function displayOnScreen(string) {
@@ -202,6 +229,14 @@ function checkIfTheExpressionIsZero() {
     }
  }
 
+ function valueToBeAddedIsNotParentheses(value) {
+    if(value === '(') {
+        return false
+    } else {
+        return true
+    }
+ }
+
 function generalFunction(value) {
     switch (value) {
         case 'clear':
@@ -265,7 +300,7 @@ function generalFunction(value) {
                     
                     break
                 case 'string':
-                    if (lastCharacterOfTheExpressionIsAnOperator()) {
+                    if (lastCharacterOfTheExpressionIsAnOperator() && valueToBeAddedIsNotParentheses(value)) {
                         alert('formato inválido')
                     } else {
                         storeValueAndDisplayIt(value)
