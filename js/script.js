@@ -60,22 +60,22 @@ function openOrCloseParentheses() {
     if (ExpressionArray.indexOf('(') === -1) {
         return '('
     } else {
-        // let expressionInsideTheParentheses = ExpressionArray.slice(ExpressionArray.indexOf('(')+1)
-        // let returnValue = ''
+        let expressionInsideTheParentheses = ExpressionArray.slice(ExpressionArray.indexOf('(')+1)
+
+        if (expressionInsideTheParentheses.indexOf('(') == -1) {
+            let returnValue = ''
+
+            if (typeof expressionInsideTheParentheses[expressionInsideTheParentheses.length - 1] === 'number') {
+                returnValue = ')'
+            } else {
+                returnValue = '('
+            }
         
-        // expressionInsideTheParentheses.forEach((element)=> {
-        //     if (typeof element === 'number') {
-        //         returnValue = ')'
-        //     } else {
-        //         returnValue = '('
-        //     }
-        // })
+            return returnValue
 
-        // return returnValue
+        }
 
-        return ')'
-
-        //Resolver primeiro o funcionamento dos parênteses na generalFunction
+        
         
     }
 
