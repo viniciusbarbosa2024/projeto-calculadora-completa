@@ -59,95 +59,8 @@ function displayCursor() {
   screen.setSelectionRange(cursorPosition, cursorPosition);
 }
 
-function teste(expression) {
-  let expressionInsideTheParentheses = expression.slice(
-    expression.indexOf("(") + 1
-  );
-
-  if (
-    (expressionInsideTheParentheses.indexOf("(") == -1 &&
-      expressionInsideTheParentheses.indexOf(")") == -1) ||
-    (expressionInsideTheParentheses.indexOf("(") != -1 &&
-      expressionInsideTheParentheses.indexOf(")") != -1)
-  ) {
-    let returnValue = "";
-
-    if (
-      typeof expressionInsideTheParentheses[
-        expressionInsideTheParentheses.length - 1
-      ] === "string" &&
-      expressionInsideTheParentheses[
-        expressionInsideTheParentheses.length - 1
-      ] != ")"
-    ) {
-      returnValue = "(";
-    } else {
-      returnValue = ")";
-    }
-
-    return returnValue;
-  }
-}
-
-function teste2(result) {
-  if (result == "(" || result == ")") {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-function teste3() {
-  let IndexesOpeningParentheses = [];
-  let IndexesClosingParentheses = [];
-
-  ExpressionArray.forEach((element, index) => {
-    if (element === "(") {
-      IndexesOpeningParentheses.push(Number(index));
-    } else if (element === ")") {
-      IndexesClosingParentheses.push(Number(index));
-    }
-  });
-
-  let openingParenthesesBeforeTheCursor = IndexesOpeningParentheses.filter(
-    (element) => element < cursorPosition
-  );
-
-  let closingParenthesesBeforeTheCursor = IndexesClosingParentheses.filter(
-    (element) => element < cursorPosition
-  );
-
-  if (
-    openingParenthesesBeforeTheCursor.length ==
-    closingParenthesesBeforeTheCursor.length
-  ) {
-  }
-}
-
 //Ver caso de adicionamento de parênteses externos a outros parênteses
 function openOrCloseParentheses() {
-  // if (ExpressionArray.indexOf('(') === -1) {
-  //     return '('
-  // } else if(cursorPosition <= ExpressionArray.indexOf('(')) {
-  //     return '('
-  // } else if(ExpressionArray[cursorPosition-1] === '(') {
-  //     return '('
-  // } else {
-
-  //     let expression = ExpressionArray
-  //     let result = teste(expression)
-
-  //     while(teste2(result)) {
-
-  //         expression = ExpressionArray.slice(expression.indexOf('(')+1)
-  //         result = teste(expression)
-
-  //     }
-
-  //     return result
-
-  // }
-
   if (ExpressionArray.indexOf("(") === -1) {
     return "(";
   } else {
@@ -174,6 +87,11 @@ function openOrCloseParentheses() {
       openingParenthesesBeforeTheCursor.length ==
       closingParenthesesBeforeTheCursor.length
     ) {
+        return '('
+    }else if (ExpressionArray[cursorPosition-1] === ')') {
+        return ')'
+    
+    } else if (typeof ExpressionArray[cursorPosition-1] == 'string') {
         return '('
     } else {
         return ')'
