@@ -81,10 +81,14 @@ function teste2(result) {
     }
 }
 
+//Ver caso de adicionamento de parênteses externos a outros parênteses
 function openOrCloseParentheses() {
     if (ExpressionArray.indexOf('(') === -1) {
         return '('
+    } else if(cursorPosition <= ExpressionArray.indexOf('(')) {
+        return '('
     } else {
+     
         let expression = ExpressionArray
         let result = teste(expression)
 
@@ -241,8 +245,9 @@ function checkIfTheExpressionIsZero() {
 
  }
 
+ //Melhorar código
  function lastCharacterOfTheExpressionIsAnOperator() {
-    if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string') {
+    if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string' && ExpressionArray[ExpressionArray.length - 1] != ')') {
         return true
     } else {
         return false
