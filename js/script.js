@@ -59,7 +59,22 @@ function displayCursor() {
   screen.setSelectionRange(cursorPosition, cursorPosition);
 }
 
-//Ver caso de adicionamento de parênteses externos a outros parênteses
+//Retorna um array com os índices dos parênteses(ou de abertura ou de fechamento,a depender do ParentheseType) que aparecem antes do cursor
+function getIndexesParenthesesBeforeTheCursor(ParentheseType) {
+    return ParentheseType.filter(
+        (element) => element < cursorPosition
+      )
+}
+
+function characterBeforeThecursorIsAClosingParenthesis() {
+    if (ExpressionArray[cursorPosition-1] === ')') {
+        return true
+    } else {
+        return false
+    }
+}
+
+
 function openOrCloseParentheses() {
   if (ExpressionArray.indexOf("(") === -1) {
     return "(";
@@ -75,25 +90,24 @@ function openOrCloseParentheses() {
       }
     });
 
-    let openingParenthesesBeforeTheCursor = IndexesOpeningParentheses.filter(
-      (element) => element < cursorPosition
-    );
+    let IndexesOpeningParenthesesBeforeTheCursor = getIndexesParenthesesBeforeTheCursor(IndexesOpeningParentheses)
 
-    let closingParenthesesBeforeTheCursor = IndexesClosingParentheses.filter(
-      (element) => element < cursorPosition
-    );
+    let IndexesClosingParenthesesBeforeTheCursor = getIndexesParenthesesBeforeTheCursor(IndexesClosingParentheses)
 
     if (
-      openingParenthesesBeforeTheCursor.length ==
-      closingParenthesesBeforeTheCursor.length
+      IndexesOpeningParenthesesBeforeTheCursor.length ==
+      IndexesClosingParenthesesBeforeTheCursor.length
     ) {
+        
         return '('
-    }else if (ExpressionArray[cursorPosition-1] === ')') {
+
+    } else if (characterBeforeThecursorIsAClosingParenthesis()) {
+        
         return ')'
     
     } else if (typeof ExpressionArray[cursorPosition-1] == 'string') {
         return '('
-    } else {
+    } else if (typeof ExpressionArray[cursorPosition-1] == 'number') {
         return ')'
     }
   }
