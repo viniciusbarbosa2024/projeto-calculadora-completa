@@ -56,26 +56,46 @@ function displayCursor() {
     screen.setSelectionRange(cursorPosition,cursorPosition)
 }
 
-function openOrCloseParentheses() {
-    if (ExpressionArray.indexOf('(') === -1) {
-        return '('
-    } else {
-        let expressionInsideTheParentheses = ExpressionArray.slice(ExpressionArray.indexOf('(')+1)
+function teste(expression) {
+    let expressionInsideTheParentheses = expression.slice(expression.indexOf('(')+1)
 
-        if (expressionInsideTheParentheses.indexOf('(') == -1) {
+        if ((expressionInsideTheParentheses.indexOf('(') == -1 && expressionInsideTheParentheses.indexOf(')') == -1) || (expressionInsideTheParentheses.indexOf('(') != -1 && expressionInsideTheParentheses.indexOf(')') != -1)) {
             let returnValue = ''
 
-            if (typeof expressionInsideTheParentheses[expressionInsideTheParentheses.length - 1] === 'number') {
-                returnValue = ')'
-            } else {
+            if (typeof expressionInsideTheParentheses[expressionInsideTheParentheses.length - 1] === 'string' && expressionInsideTheParentheses[expressionInsideTheParentheses.length - 1] != ')') {
                 returnValue = '('
+            } else {
+                returnValue = ')'
             }
         
             return returnValue
 
+        } 
+}
+
+function teste2(result) {
+    if (result == '(' || result == ')') {
+        return false
+    } else {
+        return true
+    }
+}
+
+function openOrCloseParentheses() {
+    if (ExpressionArray.indexOf('(') === -1) {
+        return '('
+    } else {
+        let expression = ExpressionArray
+        let result = teste(expression)
+
+        while(teste2(result)) {
+            
+            expression = ExpressionArray.slice(expression.indexOf('(')+1)
+            result = teste(expression)
+
         }
 
-        
+        return result
         
     }
 
@@ -230,7 +250,7 @@ function checkIfTheExpressionIsZero() {
  }
 
  function valueToBeAddedIsNotParentheses(value) {
-    if(value === '(') {
+    if(value === '(' || value === ')') {
         return false
     } else {
         return true
