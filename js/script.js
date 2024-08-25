@@ -6,7 +6,7 @@ const division = document.getElementById("division");
 const multiplication = document.getElementById("multiplication");
 const subtraction = document.getElementById("subtraction");
 const addition = document.getElementById("addition");
-const parentheses = document.getElementById('parentheses')
+const parentheses = document.getElementById("parentheses");
 const comma = document.getElementById("comma");
 const equals = document.getElementById("equals");
 
@@ -21,18 +21,17 @@ buttonNumber.forEach((element, index) => {
 
 const ExpressionArray = [0];
 
-let cursorPosition = ExpressionArray.length
+let cursorPosition = ExpressionArray.length;
 
 //Adicionando listeners
 
-document.addEventListener('DOMContentLoaded',displayCursor)
+document.addEventListener("DOMContentLoaded", displayCursor);
 
-screen.addEventListener('click',checkCursorPosition)
+screen.addEventListener("click", checkCursorPosition);
 
-
-screen.addEventListener('keydown',(e) => {
-    e.preventDefault() //Impedir manipulação da expressão usando o teclado
-})
+screen.addEventListener("keydown", (e) => {
+  e.preventDefault(); //Impedir manipulação da expressão usando o teclado
+});
 
 buttonNumber.forEach((element, index) => {
   buttonNumber[index].addEventListener("click", () =>
@@ -40,313 +39,385 @@ buttonNumber.forEach((element, index) => {
   );
 });
 
-clear.addEventListener('click',() => generalFunction('clear'))
-deleteCharacter.addEventListener('click',() => generalFunction('deleteCharacter'))
-percentage.addEventListener('click',() => generalFunction('%'))
-division.addEventListener('click',() => generalFunction('/'))
-multiplication.addEventListener('click',() => generalFunction('x'))
-subtraction.addEventListener('click',() => generalFunction('-'))
-addition.addEventListener('click',() => generalFunction('+'))
-parentheses.addEventListener('click',() => generalFunction(openOrCloseParentheses()))
-comma.addEventListener('click',() => generalFunction(','))
-equals.addEventListener('click',() => generalFunction('='))
+clear.addEventListener("click", () => generalFunction("clear"));
+deleteCharacter.addEventListener("click", () =>
+  generalFunction("deleteCharacter")
+);
+percentage.addEventListener("click", () => generalFunction("%"));
+division.addEventListener("click", () => generalFunction("/"));
+multiplication.addEventListener("click", () => generalFunction("x"));
+subtraction.addEventListener("click", () => generalFunction("-"));
+addition.addEventListener("click", () => generalFunction("+"));
+parentheses.addEventListener("click", () =>
+  generalFunction(openOrCloseParentheses())
+);
+comma.addEventListener("click", () => generalFunction(","));
+equals.addEventListener("click", () => generalFunction("="));
 
 function displayCursor() {
-    screen.focus()
-    screen.setSelectionRange(cursorPosition,cursorPosition)
+  screen.focus();
+  screen.setSelectionRange(cursorPosition, cursorPosition);
 }
 
 function teste(expression) {
-    let expressionInsideTheParentheses = expression.slice(expression.indexOf('(')+1)
+  let expressionInsideTheParentheses = expression.slice(
+    expression.indexOf("(") + 1
+  );
 
-        if ((expressionInsideTheParentheses.indexOf('(') == -1 && expressionInsideTheParentheses.indexOf(')') == -1) || (expressionInsideTheParentheses.indexOf('(') != -1 && expressionInsideTheParentheses.indexOf(')') != -1)) {
-            let returnValue = ''
+  if (
+    (expressionInsideTheParentheses.indexOf("(") == -1 &&
+      expressionInsideTheParentheses.indexOf(")") == -1) ||
+    (expressionInsideTheParentheses.indexOf("(") != -1 &&
+      expressionInsideTheParentheses.indexOf(")") != -1)
+  ) {
+    let returnValue = "";
 
-            if (typeof expressionInsideTheParentheses[expressionInsideTheParentheses.length - 1] === 'string' && expressionInsideTheParentheses[expressionInsideTheParentheses.length - 1] != ')') {
-                returnValue = '('
-            } else {
-                returnValue = ')'
-            }
-        
-            return returnValue
+    if (
+      typeof expressionInsideTheParentheses[
+        expressionInsideTheParentheses.length - 1
+      ] === "string" &&
+      expressionInsideTheParentheses[
+        expressionInsideTheParentheses.length - 1
+      ] != ")"
+    ) {
+      returnValue = "(";
+    } else {
+      returnValue = ")";
+    }
 
-        } 
+    return returnValue;
+  }
 }
 
 function teste2(result) {
-    if (result == '(' || result == ')') {
-        return false
-    } else {
-        return true
+  if (result == "(" || result == ")") {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function teste3() {
+  let IndexesOpeningParentheses = [];
+  let IndexesClosingParentheses = [];
+
+  ExpressionArray.forEach((element, index) => {
+    if (element === "(") {
+      IndexesOpeningParentheses.push(Number(index));
+    } else if (element === ")") {
+      IndexesClosingParentheses.push(Number(index));
     }
+  });
+
+  let openingParenthesesBeforeTheCursor = IndexesOpeningParentheses.filter(
+    (element) => element < cursorPosition
+  );
+
+  let closingParenthesesBeforeTheCursor = IndexesClosingParentheses.filter(
+    (element) => element < cursorPosition
+  );
+
+  if (
+    openingParenthesesBeforeTheCursor.length ==
+    closingParenthesesBeforeTheCursor.length
+  ) {
+  }
 }
 
 //Ver caso de adicionamento de parênteses externos a outros parênteses
 function openOrCloseParentheses() {
-    if (ExpressionArray.indexOf('(') === -1) {
-        return '('
-    } else if(cursorPosition <= ExpressionArray.indexOf('(')) {
+  // if (ExpressionArray.indexOf('(') === -1) {
+  //     return '('
+  // } else if(cursorPosition <= ExpressionArray.indexOf('(')) {
+  //     return '('
+  // } else if(ExpressionArray[cursorPosition-1] === '(') {
+  //     return '('
+  // } else {
+
+  //     let expression = ExpressionArray
+  //     let result = teste(expression)
+
+  //     while(teste2(result)) {
+
+  //         expression = ExpressionArray.slice(expression.indexOf('(')+1)
+  //         result = teste(expression)
+
+  //     }
+
+  //     return result
+
+  // }
+
+  if (ExpressionArray.indexOf("(") === -1) {
+    return "(";
+  } else {
+    let IndexesOpeningParentheses = [];
+    let IndexesClosingParentheses = [];
+
+    ExpressionArray.forEach((element, index) => {
+      if (element === "(") {
+        IndexesOpeningParentheses.push(Number(index));
+      } else if (element === ")") {
+        IndexesClosingParentheses.push(Number(index));
+      }
+    });
+
+    let openingParenthesesBeforeTheCursor = IndexesOpeningParentheses.filter(
+      (element) => element < cursorPosition
+    );
+
+    let closingParenthesesBeforeTheCursor = IndexesClosingParentheses.filter(
+      (element) => element < cursorPosition
+    );
+
+    if (
+      openingParenthesesBeforeTheCursor.length ==
+      closingParenthesesBeforeTheCursor.length
+    ) {
         return '('
     } else {
-     
-        let expression = ExpressionArray
-        let result = teste(expression)
-
-        while(teste2(result)) {
-            
-            expression = ExpressionArray.slice(expression.indexOf('(')+1)
-            result = teste(expression)
-
-        }
-
-        return result
-        
+        return ')'
     }
-
+  }
 }
 
 function displayOnScreen(string) {
-    screen.value = string
+  screen.value = string;
 }
 
 function clearExpressionArray() {
-    ExpressionArray.splice(0)
+  ExpressionArray.splice(0);
 }
 
 //O reset do valor do cursorPosition faz com que o cursor apareça no final da expressão
 function resetCursorPosition() {
-    cursorPosition = ExpressionArray.length
+  cursorPosition = ExpressionArray.length;
 }
 
 function clearAll() {
-    clearExpressionArray()
+  clearExpressionArray();
 
-    ExpressionArray.push(0)
+  ExpressionArray.push(0);
 
-    resetCursorPosition()
+  resetCursorPosition();
 }
 
-
 function deleteDesiredCharacter() {
-    ExpressionArray.splice(cursorPosition -1,1)
-    
+  ExpressionArray.splice(cursorPosition - 1, 1);
 }
 
 function identifyExpression() {
-    let stringExpression = ''
-    let buttonsClickedCopy = [...ExpressionArray]
+  let stringExpression = "";
+  let buttonsClickedCopy = [...ExpressionArray];
 
-    buttonsClickedCopy.forEach((element,index) => {
-        if (element == 'x') {
-            buttonsClickedCopy[index] = '*'
-        } else if (element == ',') {
-            buttonsClickedCopy[index] = '.'
-        } else if (element == '%') {
-            buttonsClickedCopy[index] = '/100*'
-        }
+  buttonsClickedCopy.forEach((element, index) => {
+    if (element == "x") {
+      buttonsClickedCopy[index] = "*";
+    } else if (element == ",") {
+      buttonsClickedCopy[index] = ".";
+    } else if (element == "%") {
+      buttonsClickedCopy[index] = "/100*";
+    }
 
-        stringExpression += buttonsClickedCopy[index]
-    })
+    stringExpression += buttonsClickedCopy[index];
+  });
 
-    return stringExpression
+  return stringExpression;
 }
 
 function solveExpression(expression) {
-    return parseFloat(eval(expression).toFixed(10)) 
+  return parseFloat(eval(expression).toFixed(10));
 }
 
 function arrayToString(array) {
-    let string = ''
+  let string = "";
 
-    array.forEach((element) => {
-        string += String(element)
-    })
+  array.forEach((element) => {
+    string += String(element);
+  });
 
-    return string
+  return string;
 }
 
-
 function storeValueAndDisplayIt(value) {
-    ExpressionArray.splice(cursorPosition,0,value)
+  ExpressionArray.splice(cursorPosition, 0, value);
 
-    displayOnScreen(arrayToString(ExpressionArray))
+  displayOnScreen(arrayToString(ExpressionArray));
 
-    //updateCursorPositionOnScreen(typeOfModificationInTheExpression)
+  //updateCursorPositionOnScreen(typeOfModificationInTheExpression)
 }
 
 function checkCursorPosition(e) {
-    cursorPosition = screen.selectionStart 
+  cursorPosition = screen.selectionStart;
 }
 
 //Define o updateParameter
 function setUpdateParameter(typeOfModificationInTheExpression) {
-    switch(typeOfModificationInTheExpression) {
-        case 'add':
-            return 1
-        case 'keep':
-            return 0
-        case 'remove':
-            return -1
-    }
+  switch (typeOfModificationInTheExpression) {
+    case "add":
+      return 1;
+    case "keep":
+      return 0;
+    case "remove":
+      return -1;
+  }
 }
 
 //Atualiza valor da variável cursorPosition
 function updateCursorPositionVariableValue(updateParameter) {
-    cursorPosition = cursorPosition + updateParameter
+  cursorPosition = cursorPosition + updateParameter;
 }
 
 //Posiciona o cursor da tela na posição correta
 function positionCursorOnScreen() {
-    screen.setSelectionRange(cursorPosition,cursorPosition)
+  screen.setSelectionRange(cursorPosition, cursorPosition);
 }
 
 //Atualiza a posição do cursor na tela
 function updateCursorPositionOnScreen(typeOfModificationInTheExpression) {
-    //Esta variável serve para orientar a definição da posição do cursor na tela dependendo do tipo de modificação que ocorreu na expressão (aumento, manutenção ou diminuição do tamanho da expressão)
-    let updateParameter = setUpdateParameter(typeOfModificationInTheExpression)
+  //Esta variável serve para orientar a definição da posição do cursor na tela dependendo do tipo de modificação que ocorreu na expressão (aumento, manutenção ou diminuição do tamanho da expressão)
+  let updateParameter = setUpdateParameter(typeOfModificationInTheExpression);
 
-    screen.focus()
+  screen.focus();
 
-    updateCursorPositionVariableValue(updateParameter)
+  updateCursorPositionVariableValue(updateParameter);
 
-    positionCursorOnScreen()
+  positionCursorOnScreen();
 }
 
-function enableTheUseOfTheResultForNewOperations(result){
-    clearExpressionArray()
-            
-    let ResultArrayInString = String(result).split('')
-    
-    ResultArrayInString.forEach ((element)=> {
+function enableTheUseOfTheResultForNewOperations(result) {
+  clearExpressionArray();
 
-        //Essas condicionais funcionam porque o result só pode ser um único número real (Ex.: 10,-8,6.32), não podendo ser uma expressão (Ex.: 6-5, 6.35*9.4)
+  let ResultArrayInString = String(result).split("");
 
-        if (element === '.') {
-            //Caso de result ser um número não inteiro
-            ExpressionArray.push(',')
-        } else if(element === '-') {
-            //Caso de result ser um número negativo
-            ExpressionArray.push(element)
-        } else {
-            ExpressionArray.push(Number(element))
-        }
-        
+  ResultArrayInString.forEach((element) => {
+    //Essas condicionais funcionam porque o result só pode ser um único número real (Ex.: 10,-8,6.32), não podendo ser uma expressão (Ex.: 6-5, 6.35*9.4)
 
-     })
+    if (element === ".") {
+      //Caso de result ser um número não inteiro
+      ExpressionArray.push(",");
+    } else if (element === "-") {
+      //Caso de result ser um número negativo
+      ExpressionArray.push(element);
+    } else {
+      ExpressionArray.push(Number(element));
+    }
+  });
 }
 
 //Verifica se a expressão está zerada
 function checkIfTheExpressionIsZero() {
-    if (ExpressionArray.length === 1 && ExpressionArray[0] === 0) {
-        return true
-    } else {
-        return false
-    }
+  if (ExpressionArray.length === 1 && ExpressionArray[0] === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
- }
+//Melhorar código
+function lastCharacterOfTheExpressionIsAnOperator() {
+  if (
+    typeof ExpressionArray[ExpressionArray.length - 1] === "string" &&
+    ExpressionArray[ExpressionArray.length - 1] != ")"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
- //Melhorar código
- function lastCharacterOfTheExpressionIsAnOperator() {
-    if (typeof ExpressionArray[ExpressionArray.length - 1] === 'string' && ExpressionArray[ExpressionArray.length - 1] != ')') {
-        return true
-    } else {
-        return false
-    }
- }
-
- function valueToBeAddedIsNotParentheses(value) {
-    if(value === '(' || value === ')') {
-        return false
-    } else {
-        return true
-    }
- }
+function valueToBeAddedIsNotParentheses(value) {
+  if (value === "(" || value === ")") {
+    return false;
+  } else {
+    return true;
+  }
+}
 
 function generalFunction(value) {
-    switch (value) {
-        case 'clear':
-            clearAll()
+  switch (value) {
+    case "clear":
+      clearAll();
 
-            displayOnScreen(arrayToString(ExpressionArray))
+      displayOnScreen(arrayToString(ExpressionArray));
 
-            displayCursor()
+      displayCursor();
 
-            break
+      break;
 
-        case 'deleteCharacter':
-            if (ExpressionArray.length === 1) {
-                //Evitar que a tela fique vazia
-                deleteDesiredCharacter() 
+    case "deleteCharacter":
+      if (ExpressionArray.length === 1) {
+        //Evitar que a tela fique vazia
+        deleteDesiredCharacter();
 
-                ExpressionArray.push(0)
+        ExpressionArray.push(0);
 
-                displayOnScreen(arrayToString(ExpressionArray))
+        displayOnScreen(arrayToString(ExpressionArray));
 
-                displayCursor()
-            } else {
-                deleteDesiredCharacter()
+        displayCursor();
+      } else {
+        deleteDesiredCharacter();
 
-                displayOnScreen(arrayToString(ExpressionArray))
+        displayOnScreen(arrayToString(ExpressionArray));
 
-                updateCursorPositionOnScreen('remove')
+        updateCursorPositionOnScreen("remove");
+      }
 
-            }
-            
-            break
-        
-        case '=':
-            let result = solveExpression(identifyExpression())
-            
-            displayOnScreen(result.toLocaleString('pt-br'))
+      break;
 
-            enableTheUseOfTheResultForNewOperations(result)
+    case "=":
+      let result = solveExpression(identifyExpression());
 
-            resetCursorPosition()
+      displayOnScreen(result.toLocaleString("pt-br"));
 
-            updateCursorPositionOnScreen('keep')
-            
-            break
-        
-        default:
-            switch (typeof value) {
-                case 'number':
-                    if (checkIfTheExpressionIsZero()) {
-                        clearExpressionArray() //Remove o '0' da tela para adicionar o novo valor
-                         
-                        storeValueAndDisplayIt(value)
+      enableTheUseOfTheResultForNewOperations(result);
 
-                        updateCursorPositionOnScreen('keep')
+      resetCursorPosition();
 
-                    } else {
-                        storeValueAndDisplayIt(value)
+      updateCursorPositionOnScreen("keep");
 
-                        updateCursorPositionOnScreen('add')
-                    }
-                    
-                    break
-                case 'string':
-                    if (lastCharacterOfTheExpressionIsAnOperator() && valueToBeAddedIsNotParentheses(value)) {
-                        alert('formato inválido')
-                    } else if(value === '(' && typeof ExpressionArray[cursorPosition-1] === 'number') {
-                
-                        storeValueAndDisplayIt('x')
+      break;
 
-                        updateCursorPositionOnScreen('add')
+    default:
+      switch (typeof value) {
+        case "number":
+          if (checkIfTheExpressionIsZero()) {
+            clearExpressionArray(); //Remove o '0' da tela para adicionar o novo valor
 
-                        storeValueAndDisplayIt(value)
+            storeValueAndDisplayIt(value);
 
-                        updateCursorPositionOnScreen('add')
+            updateCursorPositionOnScreen("keep");
+          } else {
+            storeValueAndDisplayIt(value);
 
-                    } else {
-                        storeValueAndDisplayIt(value)
+            updateCursorPositionOnScreen("add");
+          }
 
-                        updateCursorPositionOnScreen('add') 
-                    }
-                    
+          break;
+        case "string":
+          if (
+            lastCharacterOfTheExpressionIsAnOperator() &&
+            valueToBeAddedIsNotParentheses(value)
+          ) {
+            alert("formato inválido");
+          } else if (
+            value === "(" &&
+            typeof ExpressionArray[cursorPosition - 1] === "number"
+          ) {
+            storeValueAndDisplayIt("x");
 
-                    break
-            }
+            updateCursorPositionOnScreen("add");
 
-    }
-  
+            storeValueAndDisplayIt(value);
+
+            updateCursorPositionOnScreen("add");
+          } else {
+            storeValueAndDisplayIt(value);
+
+            updateCursorPositionOnScreen("add");
+          }
+
+          break;
+      }
+  }
 }
