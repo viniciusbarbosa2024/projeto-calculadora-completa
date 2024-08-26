@@ -101,15 +101,15 @@ function getIndexesParentheses(type) {
   }
 }
 
+function numberOfParenthesesBeforeTheCursor(type) {
+  return getIndexesParenthesesBeforeTheCursor(getIndexesParentheses(type)).length
+}
+
 
 function openOrCloseParentheses() {
-    let IndexesOpeningParenthesesBeforeTheCursor = getIndexesParenthesesBeforeTheCursor(getIndexesParentheses('OpeningParentheses'))
-
-    let IndexesClosingParenthesesBeforeTheCursor = getIndexesParenthesesBeforeTheCursor(getIndexesParentheses('ClosingParentheses'))
-
     if (
-      IndexesOpeningParenthesesBeforeTheCursor.length ==
-      IndexesClosingParenthesesBeforeTheCursor.length
+      numberOfParenthesesBeforeTheCursor('OpeningParentheses') ==
+      numberOfParenthesesBeforeTheCursor('ClosingParentheses')
     ) {
         
         return '('
