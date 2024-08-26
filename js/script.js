@@ -82,25 +82,30 @@ function characterBeforeCursor() {
   return ExpressionArray[cursorPosition - 1]
 }
 
+function getIndexesParentheses(type) {
+  let IndexesOpeningParentheses = [];
+  let IndexesClosingParentheses = [];
+
+  ExpressionArray.forEach((element, index) => {
+    if (element === "(") {
+      IndexesOpeningParentheses.push(Number(index));
+    } else if (element === ")") {
+      IndexesClosingParentheses.push(Number(index));
+    }
+  });
+
+  if (type === 'OpeningParentheses') {
+    return IndexesOpeningParentheses
+  } else if (type === 'ClosingParentheses') {
+    return IndexesClosingParentheses
+  }
+}
+
 
 function openOrCloseParentheses() {
-  if (ExpressionArray.indexOf("(") === -1) {
-    return "(";
-  } else {
-    let IndexesOpeningParentheses = [];
-    let IndexesClosingParentheses = [];
+    let IndexesOpeningParenthesesBeforeTheCursor = getIndexesParenthesesBeforeTheCursor(getIndexesParentheses('OpeningParentheses'))
 
-    ExpressionArray.forEach((element, index) => {
-      if (element === "(") {
-        IndexesOpeningParentheses.push(Number(index));
-      } else if (element === ")") {
-        IndexesClosingParentheses.push(Number(index));
-      }
-    });
-
-    let IndexesOpeningParenthesesBeforeTheCursor = getIndexesParenthesesBeforeTheCursor(IndexesOpeningParentheses)
-
-    let IndexesClosingParenthesesBeforeTheCursor = getIndexesParenthesesBeforeTheCursor(IndexesClosingParentheses)
+    let IndexesClosingParenthesesBeforeTheCursor = getIndexesParenthesesBeforeTheCursor(getIndexesParentheses('ClosingParentheses'))
 
     if (
       IndexesOpeningParenthesesBeforeTheCursor.length ==
@@ -119,7 +124,7 @@ function openOrCloseParentheses() {
         return ')'
     }
   }
-}
+
 
 function displayOnScreen(string) {
   screen.value = string;
