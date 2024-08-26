@@ -247,10 +247,11 @@ function checkIfTheExpressionIsZero() {
 }
 
 //Melhorar código
+//Renomear função
 function lastCharacterOfTheExpressionIsAnOperator() {
   if (
-    typeof ExpressionArray[ExpressionArray.length - 1] === "string" &&
-    ExpressionArray[ExpressionArray.length - 1] != ")"
+    typeof ExpressionArray[cursorPosition - 1] === "string" &&
+    ExpressionArray[cursorPosition - 1] != ")"
   ) {
     return true;
   } else {
