@@ -67,11 +67,19 @@ function getIndexesParenthesesBeforeTheCursor(ParentheseType) {
 }
 
 function characterBeforeThecursorIsAClosingParenthesis() {
-    if (ExpressionArray[cursorPosition-1] === ')') {
+    if (characterBeforeCursor() === ')') {
         return true
     } else {
         return false
     }
+}
+
+function typeOfCharacterBeforeCursor() {
+  return typeof ExpressionArray[cursorPosition - 1]
+}
+
+function characterBeforeCursor() {
+  return ExpressionArray[cursorPosition - 1]
 }
 
 
@@ -105,9 +113,9 @@ function openOrCloseParentheses() {
         
         return ')'
     
-    } else if (typeof ExpressionArray[cursorPosition-1] == 'string') {
+    } else if (typeOfCharacterBeforeCursor() == 'string') {
         return '('
-    } else if (typeof ExpressionArray[cursorPosition-1] == 'number') {
+    } else if (typeOfCharacterBeforeCursor() == 'number') {
         return ')'
     }
   }
@@ -250,8 +258,8 @@ function checkIfTheExpressionIsZero() {
 //Renomear função
 function lastCharacterOfTheExpressionIsAnOperator() {
   if (
-    typeof ExpressionArray[cursorPosition - 1] === "string" &&
-    ExpressionArray[cursorPosition - 1] != ")"
+    typeOfCharacterBeforeCursor() === "string" &&
+    characterBeforeCursor() != ")"
   ) {
     return true;
   } else {
@@ -335,7 +343,7 @@ function generalFunction(value) {
             alert("formato inválido");
           } else if (
             value === "(" &&
-            typeof ExpressionArray[cursorPosition - 1] === "number"
+            typeOfCharacterBeforeCursor() === "number"
           ) {
             storeValueAndDisplayIt("x");
 
