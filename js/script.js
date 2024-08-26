@@ -280,6 +280,14 @@ function valueToBeAddedIsNotParentheses(value) {
   }
 }
 
+function ThereAreClosedParenthesesImmediatelyBeforeTheCursor() {
+  if (numberOfParenthesesBeforeTheCursor('OpeningParentheses') === numberOfParenthesesBeforeTheCursor('ClosingParentheses') && characterBeforeCursor() === ')') {
+    return true
+  } else {
+    return false
+  }
+}
+
 function generalFunction(value) {
   switch (value) {
     case "clear":
@@ -348,7 +356,7 @@ function generalFunction(value) {
             alert("formato inválido");
           } else if (
             value === "(" &&
-            typeOfCharacterBeforeCursor() === "number"
+            (typeOfCharacterBeforeCursor() === "number" || ThereAreClosedParenthesesImmediatelyBeforeTheCursor() )
           ) {
             storeValueAndDisplayIt("x");
 
