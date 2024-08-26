@@ -26,6 +26,7 @@ let cursorPosition = ExpressionArray.length;
 //Adicionando listeners
 
 document.addEventListener("DOMContentLoaded", displayCursor);
+document.addEventListener("DOMContentLoaded", preventDirectManipulationOfExpression);
 
 screen.addEventListener("click", checkCursorPosition);
 
@@ -58,6 +59,12 @@ function displayCursor() {
   screen.focus();
   screen.setSelectionRange(cursorPosition, cursorPosition);
 }
+
+function preventDirectManipulationOfExpression() {
+   if (window.screen.width <= 992) {
+    screen.setAttribute('disabled','')
+   }
+} 
 
 //Retorna um array com os índices dos parênteses(ou de abertura ou de fechamento,a depender do ParentheseType) que aparecem antes do cursor
 function getIndexesParenthesesBeforeTheCursor(ParentheseType) {
