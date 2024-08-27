@@ -39,9 +39,8 @@ main #screen:focus {
 main #buttonArea {
     display: grid;
     grid-template-columns: 70px 70px 70px 70px;
-    grid-template-rows: 55px 55px 55px 55px 55px;
     justify-content: space-between;
-    row-gap: 40px;
+    align-items: center;
 
     width: 100%;
     height: calc(100vh - 150px);
@@ -49,6 +48,7 @@ main #buttonArea {
 }
 
 main #buttonArea .button {
+    height: 55px;
     padding: 10px;
 
     text-align: center;
