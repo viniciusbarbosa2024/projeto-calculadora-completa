@@ -37,18 +37,17 @@ main #screen:focus {
 }
 
 main #buttonArea {
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: calc((100vh - 445px)/4);
-    column-gap: calc((100% - 300px)/3);
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 70px 70px 70px 70px;
+    justify-content: space-between;
+    align-items: center;
 
     width: 100%;
+    height: calc(100vh - 150px);
     padding: 10px;
 }
 
 main #buttonArea .button {
-    width: 70px;
     height: 55px;
     padding: 10px;
 
